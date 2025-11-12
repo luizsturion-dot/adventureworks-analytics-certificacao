@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'cea_aw_lsturion'
 version: '1.0.0'
 config-version: 2
 
@@ -36,16 +36,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  dbt_adventure_works:
+  cea_aw_lsturion:
     +materialized: view
-    # Applies to all files under models/example/
+  
+    staging:
+      +materialized: view
+      erp:
+        +schema: stg_erp
+
     intermediate:
+      +materialized: view
       +schema: int
 
     marts:
       +materialized: table
       +schema: marts
-    
-    staging:
-      erp:
-        +schema: stg_erp

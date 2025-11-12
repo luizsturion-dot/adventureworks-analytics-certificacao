@@ -4,7 +4,7 @@ sources:
     schema: raw_adventure_works
     tables:
       - name: address
-        description: Contains product category definitions such as name and description.
+        description: Contains address information.
         columns:
           - name: addressid
             description: .
