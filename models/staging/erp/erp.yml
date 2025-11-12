@@ -1,0 +1,14 @@
+sources:
+  - name: erp
+    database: fea25_05
+    schema: raw_adventure_works
+    tables:
+      - name: address
+        description: Contains product category definitions such as name and description.
+        columns:
+          - name: addressid
+            description: .
+            data_tests:
+              - unique
+              - not_null
+
