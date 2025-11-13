@@ -3,11 +3,11 @@ sources:
     database: fea25_05
     schema: raw_adventure_works
     tables:
-      - name: address
-        description: Contains address information.
+      - name: salesorderdetail
+        description:
         columns:
-          - name: addressid
-            description: .
+          - name: id
+            description:
             data_tests:
               - unique
               - not_null
