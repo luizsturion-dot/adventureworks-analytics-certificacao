@@ -1,14 +1,13 @@
 sources:
   - name: erp
-    database: fea25_05
-    schema: raw_adventure_works
+    database: FEA25_05
+    schema: RAW_ADVENTURE_WORKS
     tables:
-      - name: salesorderdetail
-        description:
+      - name: SALES_SALESORDERDETAIL
+        description: '' 
         columns:
-          - name: id
-            description:
+          - name: salesorderdetailid
+            description: 'The primary key for the SalesOrderDetail table.' 
             data_tests:
               - unique
               - not_null
-
