@@ -3,11 +3,35 @@ sources:
     database: FEA25_05
     schema: RAW_ADVENTURE_WORKS
     tables:
-      - name: SALES_SALESORDERDETAIL
+      - name: sales_salesorderdetail
         description: '' 
         columns:
           - name: salesorderdetailid
             description: 'The primary key for the SalesOrderDetail table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: person_countryregion
+        description: '' 
+        columns:
+          - name: countryregioncode
+            description: 'The primary key for the CountryRegion table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: sales_customer
+        description: '' 
+        columns:
+          - name: customerid
+            description: 'The primary key for the Customer table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: person_address
+        description: '' 
+        columns:
+          - name: addressid
+            description: 'The primary key for the Address table.' 
             data_tests:
               - unique
               - not_null
