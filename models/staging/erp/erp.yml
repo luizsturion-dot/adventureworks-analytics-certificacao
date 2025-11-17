@@ -67,4 +67,13 @@ sources:
             data_tests:
               - unique
               - not_null
-            
+      - name: sales_salesorderheadersalesreason
+
+      - name: sales_salesreason
+        description: '' 
+        columns:
+          - name: salesreasonid
+            description: 'The primary key for the Product table.' 
+            data_tests:
+              - unique
+              - not_null              
