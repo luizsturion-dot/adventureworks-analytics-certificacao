@@ -76,4 +76,21 @@ sources:
             description: 'The primary key for the Product table.' 
             data_tests:
               - unique
-              - not_null              
+              - not_null
+      - name: sales_creditcard
+        description: '' 
+        columns:
+          - name: creditcardid
+            description: 'The primary key for the Credit Card table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: sales_personcreditcard
+      - name: person_person
+        description: '' 
+        columns:
+          - name: businessentityid
+            description: 'The primary key for the Person table.' 
+            data_tests:
+              - unique
+              - not_null                                  
