@@ -35,3 +35,36 @@ sources:
             data_tests:
               - unique
               - not_null
+      - name: sales_salesterritory
+        description: '' 
+        columns:
+          - name: territoryid
+            description: 'The primary key for the Sales Territory table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: person_stateprovince
+        description: '' 
+        columns:
+          - name: stateprovinceid
+            description: 'The primary key for the State Province table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: sales_salesorderheader
+        description: '' 
+        columns:
+          - name: salesorderid
+            description: 'The primary key for the Sales Order Header table.' 
+            data_tests:
+              - unique
+              - not_null
+      - name: production_product
+        description: '' 
+        columns:
+          - name: productid
+            description: 'The primary key for the Product table.' 
+            data_tests:
+              - unique
+              - not_null
+            
