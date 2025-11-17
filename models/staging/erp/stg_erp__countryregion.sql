@@ -10,7 +10,7 @@ source as (
 renamed as (
 
     select
-        cast(COUNTRYREGIONCODE as varchar) as countryregion_pk
+        cast(COUNTRYREGIONCODE as varchar) as countryregioncode_territory_pk
         , cast(NAME as string) as country_name
 
     from source

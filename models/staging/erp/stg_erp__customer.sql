@@ -10,10 +10,10 @@ source as (
 renamed as (
 
     select
-        cast(CUSTOMERID as int) as customer_pk
-        , cast(PERSONID as int) as person_fk
-        , cast(STOREID as int) as store_fk
-        , cast(TERRITORYID as int) as customer_territory_fk
+        cast(CUSTOMERID as int) as customerid_pk
+        , cast(PERSONID as int) as personid_fk
+        , cast(STOREID as int) as storeid_fk
+        , cast(TERRITORYID as int) as customer_territoryid_fk
 
     from source
 
