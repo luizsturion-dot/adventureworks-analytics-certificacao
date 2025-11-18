@@ -93,4 +93,12 @@ sources:
             description: 'The primary key for the Person table.' 
             data_tests:
               - unique
-              - not_null                                  
+              - not_null
+      - name: sales_store
+        description: '' 
+        columns:
+          - name: businessentityid
+            description: 'The primary key for the Store table.' 
+            data_tests:
+              - unique
+              - not_null                                   
