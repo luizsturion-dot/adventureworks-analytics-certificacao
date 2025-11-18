@@ -43,3 +43,11 @@ models:
       +materialized: view
       erp:
         +schema: stg_erp
+
+    intermediate:
+      +materialized: view
+      +schema: int
+
+    marts:
+      +materialized: table
+      +schema: marts
