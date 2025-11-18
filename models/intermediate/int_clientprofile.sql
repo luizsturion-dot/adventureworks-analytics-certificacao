@@ -35,7 +35,6 @@ with
             creditcard.creditcardid_pk,
             creditcard.cardtype,
             customer.customer_territoryid_fk,
-            personcreditcard.creditcardid_fk,
             person.businessentityid_person_pk,
             store.businessentityid_store_pk
         from customer
