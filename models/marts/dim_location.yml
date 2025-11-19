@@ -1,0 +1,60 @@
+models:
+  - name: dim_location
+    description: "Conformed Location Dimension, consolidating Address, State/Province, Country, and Sales Territory information. Used to segment sales by geographic location."
+    
+    # Model-level test to ensure no duplicate combination of primary keys (location_key) 
+    # and key descriptive attributes (state_province)
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [location_key] # Just checking for location_key uniqueness is sufficient for the PK
+          
+    columns:
+      # --- PRIMARY KEY (SURROGATE KEY - SK) ---
+      - name: location_key
+        description: "The Surrogate Key (SK) for the location dimension, derived from the AddressID_PK."
+        tests:
+          - unique
+          - not_null
+          
+      # --- ATTRIBUTES ---
+      - name: city
+        description: "The name of the city (City_Name)."
+        tests:
+          - not_null
+          
+      - name: state_province
+        description: "The full name of the State or Province (StateProvince_Name)."
+        tests:
+          - not_null
+          
+      - name: state_province_code
+        description: "The two-character code for the State/Province (e.g., CA, WA)."
+        
+      - name: postal_code
+        description: "The Postal Code (ZIP Code)."
+        
+      - name: territory_name
+        description: "The name of the Sales Territory (e.g., Northeast, Central)."
+        
+      - name: areacontinent
+        description: "The high-level geographic area or continent for the Sales Territory (e.g., North America, Europe)."
+        tests:
+          - accepted_values:
+              values: ['North America', 'Europe', 'Pacific', 'Canada', 'France', 'Germany', 'Australia']
+              
+      - name: country
+        description: "The name of the Country (Country_Name)."
+        tests:
+          - not_null
+          
+      - name: country_code
+        description: "The two-character ISO code for the Country (CountryRegionCode)."
+        tests:
+          - not_null
+          
+      # --- BUSINESS KEYS (For auditing and potential recursive joins, but not FCT joins) ---
+      - name: territory_key
+        description: "The Business Key (BK) for the Sales Territory (TerritoryID_FK). Used for auditing."
+        
+      - name: state_province_key
+        description: "The Business Key (BK) for the State/Province (StateProvinceID_FK). Used for auditing."
