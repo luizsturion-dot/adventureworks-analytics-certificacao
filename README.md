@@ -23,25 +23,43 @@ Transformar os dados transacionais (OLTP) da Adventure Works em um Data Warehous
 ---
 ***[AJUSTAR] 
 
-## 💻 Estrutura do Repositório (Projeto dbt)
+## 💻 Estrutura do Repositório dbt
 
-O projeto dbt segue a metodologia de camadas para garantir modularidade e reusabilidade:
+O projeto segue uma estrutura de camadas para garantir a modularidade, reusabilidade e clareza (STG → INT → Marts).
 
+```text
 adventureworks-analytics-certificacao/
 ├── models/
-│   ├── staging/        # Camada de Staging (STG): Limpeza e seleção de colunas das tabelas RAW.
-│   │   ├── stg_salesorderheader.sql
-│   │   └── ...
-│   ├── intermediate/   # Camada Intermediária (INT): Lógica complexa de JOINs antes do Mart. (Ex: int_customer_person_consolidated.sql)
-│   │   └── ...
-│   └── marts/          # Camada de Marts (DIM/FCT): Modelos finais prontos para consumo do BI.
-│       ├── core/       # Modelos Fato e Dimensão Principais.
+│   ├── staging/        # Camada de Staging (STG)
+│   │   ├── stg_erp__address.sql
+│   │   ├── stg_erp__countryregion.sql
+│   │   ├── stg_erp__creditcard.sql
+│   │   ├── stg_erp__customer.sql
+│   │   ├── stg_erp__person.sql
+│   │   ├── stg_erp__personcreditcard.sql
+│   │   ├── stg_erp__product.sql
+│   │   ├── stg_erp__salesorderdetail.sql
+│   │   ├── stg_erp__salesorderheader.sql
+│   │   ├── stg_erp__salesorderheadersalesreason.sql
+│   │   ├── stg_erp__salesreason.sql
+│   │   ├── stg_erp__salesterritory.sql
+│   │   ├── stg_erp__stateprovince.sql
+│   │   └── stg_erp__store.sql
+│   ├── intermediate/   # Camada Intermediária (INT)
+│   │   ├── int_clientprofile.sql
+│   │   ├── int_location.sql
+│   │   ├── int_product.sql
+│   │   ├── int_sales__metrics.sql
+│   │   └── int_salesreason.sql
+│   └── marts/          # Camada de Marts (DIM/FCT)
+│       ├── core/       # Modelos Fato e Dimensão Principais
 │       │   ├── dim_customer.sql
 │       │   ├── dim_product.sql
 │       │   └── fct_sales.sql
-│       └── util/       # Dimensões de apoio. (Ex: dim_date.sql)
-├── tests/              # Testes customizados (incluindo o teste de veracidade do CEO).
-└── dbt_project.yml     # Configurações do projeto.
+│       └── util/       # Dimensões de apoio
+│           └── dim_date.sql
+├── tests/              # Testes customizados
+└── dbt_project.yml     # Configurações do projeto
 
 ## ✅ Demonstração e Validações Chave
 
