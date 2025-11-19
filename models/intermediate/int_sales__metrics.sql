@@ -1,18 +1,26 @@
 with 
-    salesorderheader as (
+    salesorderdetail as (
+        select *
+        from {{ ref('stg_erp__salesorderdetail')}}
+    )
+
+    
+    , salesorderheader as (
         select *
         from {{ ref('stg_erp__salesorderheader')}}
     )
 
-    , salesorderdetail as (
-        select *
-        from {{ ref('stg_erp__salesorderdetail')}}
-    )
 
 -- Primeiramente, realizamos o join entre as duas entidades;
 
     , joined as (
         select 
+            salesorderdetail.salesorderdetailid_pk,
+            salesorderdetail.salesorderid_fk,
+            salesorderdetail.order_quantity,
+            salesorderdetail.unitprice,
+            salesorderdetail.productid,
+            salesorderdetail.unitpricediscount, 
             salesorderheader.salesordeid_pk,
             salesorderheader.customerid_fk,
             salesorderheader.creditcardid_fk,
@@ -23,14 +31,9 @@ with
             salesorderheader.shipdate,
             salesorderheader.freight,
             salesorderheader.status,
-            salesorderdetail.salesorderdetailid_pk,
-            salesorderdetail.salesorderid_fk,
-            salesorderdetail.order_quantity,
-            salesorderdetail.unitprice,
-            salesorderdetail.productid,
-            salesorderdetail.unitpricediscount                        
-        from salesorderheader
-        left join salesorderdetail on salesorderheader.salesordeid_pk = salesorderdetail.salesorderid_fk
+                       
+        from salesorderdetail
+        left join salesorderheader on salesorderdetail.salesorderid_fk = salesorderheader.salesordeid_pk
 
     )
 
@@ -39,13 +42,14 @@ with
 
     , metrics as (
         select 
-            salesordeid_pk
-            , salesorderdetailid_pk
-            , productid
+            salesorderdetailid_pk
+            , salesordeid_pk
+            , {{ dbt_utils.generate_surrogate_key(['salesordeid_pk', 'salesorderdetailid_pk']) }} as sales_key
             , customerid_fk
             , creditcardid_fk
             , header_territoryid_fk
             , shiptoaddressid_fk
+            , productid
             , order_quantity
             , unitprice
             , unitpricediscount

@@ -60,6 +60,7 @@ adventureworks-analytics-certificacao/
 │           └── dim_date.sql
 ├── tests/              # Testes customizados
 └── dbt_project.yml     # Configurações do projeto
+```
 
 ## ✅ Demonstração e Validações Chave
 
