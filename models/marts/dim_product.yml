@@ -1,0 +1,29 @@
+models:
+  - name: dim_product
+    description: "A dimension table containing one row per product. This serves as the source of truth for all product-related attributes."
+    columns:
+      # --- Primary Key Renamed ---
+      - name: product_id
+        description: "The primary key for the product dimension, cast from the source system's PRODUCTID."
+        tests:
+          - unique
+          - not_null
+      
+      - name: product_name
+        description: "The human-readable name of the product."
+        tests:
+          - not_null
+      
+      - name: product_number
+        description: "The unique identifier or number assigned to the product."
+        tests:
+          - not_null
+      
+      - name: product_size
+        description: "The size dimension of the product (e.g., Small, Medium, Large, or a numeric value)."
+      
+      - name: product_color
+        description: "The color of the product."
+      
+      - name: product_weight
+        description: "The standardized weight of the product."
