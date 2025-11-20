@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: dim_reasons
+    description: |
+      A **Bridge Dimension Table** used to resolve the many-to-many relationship
+      between the Sales Order Header and the Sales Reason Dimension. 
+      
+      This table provides a unique identifier for every (Order, Reason) combination,
+      allowing a single sales order to have multiple reasons, and a single reason
+      to apply to multiple sales orders.
+    
+    columns:
+      # --- Primary Key (The Junction Key) ---
+      - name: reason_key
+        description: "The surrogate key representing the unique combination of a Sales Order and a Sales Reason (Composite Key: salesorder_id + salesreason_id)."
+        tests:
+          - unique
+          - not_null
+      
+      # --- Foreign Key to Sales Order Fact ---
+      - name: salesorder_id
+        description: "Foreign key to the Sales Order Fact Table, linking this record to the specific sales transaction."
+        tests:
+          - not_null
+          # Optional: Add a relationship test once your fact_sales_order model exists.
+          # - relationships:
+          #     to: ref('fact_sales_order')
+          #     field: salesorder_id
+
+      # --- Foreign Key to Sales Reason Dimension ---
+      - name: salesreason_id
+        description: "Foreign key to the Sales Reason Dimension Table (dim_sales_reason), linking to the descriptive details of the reason."
+        tests:
+          - not_null
+          # Optional: Add a relationship test once your dim_sales_reason model exists.
+          # - relationships:
+          #     to: ref('dim_sales_reason')
+          #     field: salesreason_id
+      
+      # --- Descriptive Attributes (Denormalized) ---
+      - name: salesreason_name
+        description: "The human-readable name of the sales reason (e.g., 'Promotion', 'Manufacturer Defect')."
+        tests:
+          - not_null
+          - expect_column_to_be_of_type:
+              arguments:
+                column_type: varchar
+
+      - name: salesreason_type
+        description: "The type or category of the sales reason (e.g., 'Return', 'Web')."
+        tests:
+          - expect_column_to_be_of_type:
+              arguments:
+                column_type: ['string', 'varchar']
+          # Suggested Test: Ensure the type is one of a controlled list of values
+          - expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ["Price", "On Promotion", "Magazine Advertisement", "Television Advertisement", "Manufacturer", "Review", "Demo Event", "Sponsorship", "Quality", "Other"]
+              # Note: Update this list to match the actual types in your source data.

@@ -11,12 +11,13 @@ with
 
     , joined as (
         select 
-            salesreason.salesreasonid_pk,
-            salesreason.salesreason_name,
-            salesreason.salesreason_type,
-            salesorderheadersalesreason.salesorderid_fk
-        from salesreason
-        left join salesorderheadersalesreason on salesreason.salesreasonid_pk = salesorderheadersalesreason.salesreasonid_fk
+            {{ dbt_utils.generate_surrogate_key(['salesorderheadersalesreason.salesorderid_fk', 'salesreason.salesreasonid_pk']) }} as reason_key
+            , salesorderheadersalesreason.salesorderid_fk as salesorder_id
+            , salesreason.salesreasonid_pk as salesreason_id  
+            , salesreason.salesreason_name
+            , salesreason.salesreason_type
+        from salesorderheadersalesreason
+        left join salesreason on salesreason.salesreasonid_pk = salesorderheadersalesreason.salesreasonid_fk
 
     )
 
