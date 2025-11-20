@@ -1,0 +1,53 @@
+models:
+  - name: dim_clientprofile
+    description: "The Customer Dimension model, consolidating individual (Person) and company (Store) profiles, their credit card information, and basic segmentation. This model serves as a core lookup table for the FCT_Sales."
+    
+    # Materialization is assumed to be 'table' in the marts folder configuration
+    
+    columns:
+      # --- PRIMARY KEY ---
+      - name: customer_id
+        description: "The unique Customer Key (SK) derived from the Adventure Works CustomerID. This is the primary foreign key for the FCT_Sales table."
+        tests:
+          - unique
+          - not_null
+          
+      # --- BUSINESS ATTRIBUTES & SEGMENTATION ---
+      - name: client_type
+        description: "Classification of the customer based on available keys: 'Individual' (linked to a Person) or 'Company' (linked to a Store)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments: 
+                values: ['Individual', 'Company', 'Unknown']
+              
+      - name: full_name
+        description: "The concatenated first and last name of the individual customer. NULL for Company accounts."
+        
+      - name: store_name
+        description: "The name of the company/store customer. NULL for individual accounts."
+        
+      - name: territory_id
+        description: "Foreign Key (BK) referencing the Sales Territory to which the customer belongs."
+        tests:
+          - not_null
+              
+      # --- CREDIT CARD INFORMATION (Low Cardinality Attributes) ---
+      - name: credit_card_id
+        description: "The Business Key (BK) of the primary credit card on file for this customer/person. Used for linking to the CreditCard dimension."
+        
+      - name: credit_card_type
+        description: "The type of credit card on file (e.g., Vista, Mastercard, American Express)."
+              
+      # --- AUDIT AND RELATIONSHIP KEYS (Business Keys - BKs) ---
+      - name: person_id
+        description: "The Business Key (BK) of the associated Person record (NULL for Store customers)."
+        
+      - name: store_id
+        description: "The Business Key (BK) of the associated Store record (NULL for Individual customers)."
+      
+      - name: businessentity_id_person
+        description: "The top-level Business Entity ID for the associated Person."
+        
+      - name: businessentity_id_store
+        description: "The top-level Business Entity ID for the associated Store."

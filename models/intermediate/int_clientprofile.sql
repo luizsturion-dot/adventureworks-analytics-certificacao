@@ -27,16 +27,21 @@ with
 
     , joined as (
         select 
-            customer.customerid_pk,
-            customer.personid_fk,
-            customer.storeid_fk,
-            person.firstname || ' ' || person.lastname as full_name,
-            store.storename,
-            creditcard.creditcardid_pk,
-            creditcard.cardtype,
-            customer.customer_territoryid_fk,
-            person.businessentityid_person_pk,
-            store.businessentityid_store_pk
+            customer.customerid_pk as customer_id
+            , case
+                when customer.personid_fk is not null and customer.storeid_fk is null then 'Individual'
+                when customer.storeid_fk is not null then 'Company'
+                else 'Unknown'
+            end as client_type
+            , customer.personid_fk as person_id
+            , customer.storeid_fk as store_id
+            , person.firstname || ' ' || person.lastname as full_name
+            , store.storename as store_name
+            , creditcard.creditcardid_pk as credit_card_id
+            , creditcard.cardtype as credit_card_type
+            , customer.customer_territoryid_fk as territory_id
+            , person.businessentityid_person_pk as businessentity_id_person
+            , store.businessentityid_store_pk as businessentity_id_store
         from customer
         left join store on customer.storeid_fk = store.businessentityid_store_pk
         left join person on customer.personid_fk = person.businessentityid_person_pk
