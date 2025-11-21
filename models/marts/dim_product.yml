@@ -1,14 +1,18 @@
 models:
   - name: dim_product
     description: "A dimension table containing one row per product. This serves as the source of truth for all product-related attributes."
+    
+    # Materialized as table
+    
     columns:
-      # --- Primary Key Renamed ---
+      # --- PRIMARY KEY ---
       - name: product_id
         description: "The primary key for the product dimension, cast from the source system's PRODUCTID."
         tests:
           - unique
           - not_null
-      
+
+      # --- ATTRIBUTES ---  
       - name: product_name
         description: "The human-readable name of the product."
         tests:

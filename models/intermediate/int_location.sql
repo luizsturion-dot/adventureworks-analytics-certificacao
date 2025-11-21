@@ -38,7 +38,7 @@ with
 
         from address
         left join stateprovince on stateprovince.stateprovinceid_pk = address.stateprovinceid_fk
-        left join salesterritory on salesterritory.countryregioncode_territory_fk = stateprovince.countryregioncode_stateprovince_fk
+        left join salesterritory on salesterritory.territoryid_pk = stateprovince.territoryid_fk
         left join countryregion on salesterritory.countryregioncode_territory_fk = countryregion.countryregioncode_territory_pk
 
     )

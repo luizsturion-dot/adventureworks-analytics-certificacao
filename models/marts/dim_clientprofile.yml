@@ -2,7 +2,7 @@ models:
   - name: dim_clientprofile
     description: "The Customer Dimension model, consolidating individual (Person) and company (Store) profiles, their credit card information, and basic segmentation. This model serves as a core lookup table for the FCT_Sales."
     
-    # Materialization is assumed to be 'table' in the marts folder configuration
+    # Materialized as table
     
     columns:
       # --- PRIMARY KEY ---
