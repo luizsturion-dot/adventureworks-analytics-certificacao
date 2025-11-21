@@ -42,14 +42,14 @@ with
 
     , metrics as (
         select 
-            salesorderdetailid_pk
-            , salesordeid_pk
-            , {{ dbt_utils.generate_surrogate_key(['salesordeid_pk', 'salesorderdetailid_pk']) }} as sales_key
-            , customerid_fk
-            , creditcardid_fk
-            , header_territoryid_fk
-            , shiptoaddressid_fk
-            , productid
+            {{ dbt_utils.generate_surrogate_key(['salesordeid_pk', 'salesorderdetailid_pk']) }} as sales_key
+            , salesorderdetailid_pk as sales_detail_id
+            , salesordeid_pk as sales_order_id
+            , customerid_fk as customer_id
+            , creditcardid_fk as credit_card_id
+            , header_territoryid_fk as territory_id
+            , shiptoaddressid_fk as shipping_id
+            , productid as product_id
             , order_quantity
             , unitprice
             , unitpricediscount
