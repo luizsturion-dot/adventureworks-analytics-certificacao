@@ -18,10 +18,9 @@ Transformar os dados transacionais (OLTP) da Adventure Works em um Data Warehous
 | **Ingestão (EL)** | Dados fornecidos no schema `raw_adventure_works` | Fonte de dados brutos (PostgreSQL/Cloud DW). |
 | **Data Warehouse (DW)** | [Snowflake] | Destino e armazenamento dos dados transformados. |
 | **Transformação (T)** | **dbt Cloud** | Modelagem dimensional e aplicação das regras de negócio e testes. |
-| **Visualização (BI)** | [[NOME DA FERRAMENTA] BI - Ex: Google Data Studio/Power BI] | Criação de dashboards interativos para Self-Service BI. |
+| **Visualização (BI)** | [Power BI] | Criação de dashboards interativos para Self-Service BI. |
 
 ---
-***[AJUSTAR] 
 
 ## 💻 Estrutura do Repositório dbt
 
@@ -31,20 +30,22 @@ O projeto segue uma estrutura de camadas para garantir a modularidade, reusabili
 adventureworks-analytics-certificacao/
 ├── models/
 │   ├── staging/        # Camada de Staging (STG)
-│   │   ├── stg_erp__address.sql
-│   │   ├── stg_erp__countryregion.sql
-│   │   ├── stg_erp__creditcard.sql
-│   │   ├── stg_erp__customer.sql
-│   │   ├── stg_erp__person.sql
-│   │   ├── stg_erp__personcreditcard.sql
-│   │   ├── stg_erp__product.sql
-│   │   ├── stg_erp__salesorderdetail.sql
-│   │   ├── stg_erp__salesorderheader.sql
-│   │   ├── stg_erp__salesorderheadersalesreason.sql
-│   │   ├── stg_erp__salesreason.sql
-│   │   ├── stg_erp__salesterritory.sql
-│   │   ├── stg_erp__stateprovince.sql
-│   │   └── stg_erp__store.sql
+│   │   └──erp/
+│   │       ├── erp.yml
+│   │       ├── stg_erp__address.sql
+│   │       ├── stg_erp__countryregion.sql
+│   │       ├── stg_erp__creditcard.sql
+│   │       ├── stg_erp__customer.sql
+│   │       ├── stg_erp__person.sql
+│   │       ├── stg_erp__personcreditcard.sql
+│   │       ├── stg_erp__product.sql
+│   │       ├── stg_erp__salesorderdetail.sql
+│   │       ├── stg_erp__salesorderheader.sql
+│   │       ├── stg_erp__salesorderheadersalesreason.sql
+│   │       ├── stg_erp__salesreason.sql
+│   │       ├── stg_erp__salesterritory.sql
+│   │       ├── stg_erp__stateprovince.sql
+│   │       └── stg_erp__store.sql
 │   ├── intermediate/   # Camada Intermediária (INT)
 │   │   ├── int_clientprofile.sql
 │   │   ├── int_location.sql
@@ -52,13 +53,20 @@ adventureworks-analytics-certificacao/
 │   │   ├── int_sales__metrics.sql
 │   │   └── int_salesreason.sql
 │   └── marts/          # Camada de Marts (DIM/FCT)
-│       ├── core/       # Modelos Fato e Dimensão Principais
-│       │   ├── dim_customer.sql
-│       │   ├── dim_product.sql
-│       │   └── fct_sales.sql
-│       └── util/       # Dimensões de apoio
-│           └── dim_date.sql
+│       ├── dim_clientprofile.sql
+│       ├── dim_clientprofile.yml
+│       ├── dim_location.sql
+│       ├── dim_location.yml
+│       ├── dim_product.sql
+│       ├── dim_product.yml
+│       ├── dim_reasons.sql
+│       ├── dim_reasons.yml
+│       ├── fct_sales.sql
+│       └── fct_sales.yml
 ├── tests/              # Testes customizados
+│    └── tst_gross_total_sales_2011.sql 
+├── dbt_project.yml
+├── package-lock.yml
 └── dbt_project.yml     # Configurações do projeto
 ```
 
@@ -90,5 +98,5 @@ Este projeto foi validado conforme os requisitos da certificação:
 
 ---
 [AJUSTAR]
-*Desenvolvido por: [Seu Nome Completo]*
+*Desenvolvido por: Luiz Henrique Chueire Sturion*
 *Data de Conclusão: [Data]*

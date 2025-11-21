@@ -2,8 +2,8 @@ models:
   - name: dim_location
     description: "Conformed Location Dimension, consolidating Address, State/Province, Country, and Sales Territory information. Used to segment sales by geographic location."
     
-    # Model-level test to ensure no duplicate combination of primary keys (location_key) 
-    # and key descriptive attributes (state_province)
+    # Materialized as table
+    
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns: [location_key] # Just checking for location_key uniqueness is sufficient for the PK
@@ -15,7 +15,14 @@ models:
         tests:
           - unique
           - not_null
-          
+
+      # --- FOREIGN KEYS (BUSINESS KEYS - FKs) ---
+      - name: address_key
+        description: "Business Key (BK) of the Address Table."
+        tests:
+          - unique
+          - not_null
+
       # --- ATTRIBUTES ---
       - name: city
         description: "The name of the city (City_Name)."
@@ -40,7 +47,7 @@ models:
         description: "The high-level geographic area or continent for the Sales Territory (e.g., North America, Europe)."
         tests:
           - accepted_values:
-              values: ['North America', 'Europe', 'Pacific', 'Canada', 'France', 'Germany', 'Australia']
+                values: ['North America', 'Europe', 'Pacific', 'Canada', 'France', 'Germany', 'Australia']
               
       - name: country
         description: "The name of the Country (Country_Name)."

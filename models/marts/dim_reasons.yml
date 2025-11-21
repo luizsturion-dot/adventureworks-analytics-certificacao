@@ -11,34 +11,25 @@ models:
       to apply to multiple sales orders.
     
     columns:
-      # --- Primary Key (The Junction Key) ---
+      # --- PRIMARY KEY (SURROGATE KEY - SK) ---
       - name: reason_key
         description: "The surrogate key representing the unique combination of a Sales Order and a Sales Reason (Composite Key: salesorder_id + salesreason_id)."
         tests:
           - unique
           - not_null
       
-      # --- Foreign Key to Sales Order Fact ---
+      # --- FOREIGN KEYS (BUSINESS KEYS - FKs) ---
       - name: salesorder_id
         description: "Foreign key to the Sales Order Fact Table, linking this record to the specific sales transaction."
         tests:
           - not_null
-          # Optional: Add a relationship test once your fact_sales_order model exists.
-          # - relationships:
-          #     to: ref('fact_sales_order')
-          #     field: salesorder_id
 
-      # --- Foreign Key to Sales Reason Dimension ---
       - name: salesreason_id
         description: "Foreign key to the Sales Reason Dimension Table (dim_sales_reason), linking to the descriptive details of the reason."
         tests:
           - not_null
-          # Optional: Add a relationship test once your dim_sales_reason model exists.
-          # - relationships:
-          #     to: ref('dim_sales_reason')
-          #     field: salesreason_id
       
-      # --- Descriptive Attributes (Denormalized) ---
+      # --- ATTRIBUTES ---
       - name: salesreason_name
         description: "The human-readable name of the sales reason (e.g., 'Promotion', 'Manufacturer Defect')."
         tests:
