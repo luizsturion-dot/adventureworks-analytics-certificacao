@@ -3,20 +3,9 @@ models:
     description: "Conformed Location Dimension, consolidating Address, State/Province, Country, and Sales Territory information. Used to segment sales by geographic location."
     
     # Materialized as table
-    
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns: [location_key] # Just checking for location_key uniqueness is sufficient for the PK
-          
-    columns:
-      # --- PRIMARY KEY (SURROGATE KEY - SK) ---
-      - name: location_key
-        description: "The Surrogate Key (SK) for the location dimension, derived from the AddressID_PK."
-        tests:
-          - unique
-          - not_null
 
-      # --- FOREIGN KEYS (BUSINESS KEYS - FKs) ---
+    columns:
+      # --- PRIMARY KEY ---
       - name: address_key
         description: "Business Key (BK) of the Address Table."
         tests:

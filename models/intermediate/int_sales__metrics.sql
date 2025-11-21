@@ -42,8 +42,7 @@ with
 
     , metrics as (
         select 
-            {{ dbt_utils.generate_surrogate_key(['salesordeid_pk', 'salesorderdetailid_pk']) }} as sales_key
-            , salesorderdetailid_pk as sales_detail_id
+            salesorderdetailid_pk as sales_detail_id
             , salesordeid_pk as sales_order_id
             , customerid_fk as customer_id
             , creditcardid_fk as credit_card_id
