@@ -1,55 +1,28 @@
-version: 2
-
 models:
   - name: dim_reasons
-    description: |
-      A **Bridge Dimension Table** used to resolve the many-to-many relationship
-      between the Sales Order Header and the Sales Reason Dimension. 
-      
-      This table provides a unique identifier for every (Order, Reason) combination,
-      allowing a single sales order to have multiple reasons, and a single reason
-      to apply to multiple sales orders.
+    description: "A Degenerate Dimension that aggregates all Sales Reasons and Sales Reason Types associated with a single Sales Order into two concise, delimited strings. This model simplifies analysis of multi-reason orders."
+    
+    # Materialized as table
     
     columns:
-      # --- PRIMARY KEY (SURROGATE KEY - SK) ---
-      - name: reason_key
-        description: "The surrogate key representing the unique combination of a Sales Order and a Sales Reason (Composite Key: salesorder_id + salesreason_id)."
+      # --- PRIMARY KEY (Business Key - BK) ---
+      - name: salesorder_id
+        description: "The primary Business Key (BK) for this dimension, representing the unique Sales Order ID. This column serves as the Foreign Key (FK) when joining back to the FCT_Sales model."
         tests:
           - unique
           - not_null
-      
-      # --- FOREIGN KEYS (BUSINESS KEYS - FKs) ---
-      - name: salesorder_id
-        description: "Foreign key to the Sales Order Fact Table, linking this record to the specific sales transaction."
+              
+      # --- AGGREGATED ATTRIBUTES ---
+      - name: sales_reason_agg
+        description: "A comma-separated string listing all distinct Sales Reason names associated with the order (e.g., 'Promotion, Referral, Internet'). Defaults to 'No Reason' if no reason is found."
         tests:
           - not_null
-
-      - name: salesreason_id
-        description: "Foreign key to the Sales Reason Dimension Table (dim_sales_reason), linking to the descriptive details of the reason."
+          
+      - name: sales_type_agg
+        description: "A comma-separated string listing all distinct Sales Reason Types associated with the order (e.g., 'Marketing, Store'). Defaults to 'No Type' if no type is found."
         tests:
           - not_null
-      
-      # --- ATTRIBUTES ---
-      - name: salesreason_name
-        description: "The human-readable name of the sales reason (e.g., 'Promotion', 'Manufacturer Defect')."
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_in_type_list:
-              arguments:
-                column_type_list: [varchar]
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              arguments:
-                value_set: ['Price', 'On Promotion', 'Magazine Advertisement', 'Television Advertisement', 'Television  Advertisement', 'Manufacturer', 'Review', 'Demo Event', 'Sponsorship', 'Quality', 'Other']
-                quote_values: true # (Optional. Default is 'true'.)
-
-                ## Neste foi adicionado o valor 'Television  Advertisement', com dois espaços.
-                ## Este valor não está em FEA25_05.RAW_ADVENTURE_WORKS.SALES_SALESREASON, contudo, ao rodar este teste, retornou erro.
-                ## Realizei query diretamente no Snowflake e descobri este valor adicional.
-                ## Assim, para os fins deste desafio, este valor foi incluso. Contudo, o correto seria encontrar as rows discrepantes no dw e corrigi-las.               
-
-      - name: salesreason_type
-        description: "The type or category of the sales reason (e.g., 'Return', 'Web')."
-        tests:
-          - dbt_expectations.expect_column_values_to_be_in_type_list:
-              arguments:
-                column_type_list: ['string', 'varchar']
+          
+      # --- AUDIT COLUMN ---
+      - name: sales_reason_id
+        description: "The Business Key (BK) of the Sales Reason ID. Note: This field is only meaningful if an order has a single reason; otherwise, it should be disregarded in analysis."

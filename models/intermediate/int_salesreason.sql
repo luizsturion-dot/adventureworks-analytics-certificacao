@@ -11,8 +11,7 @@ with
 
     , joined as (
         select 
-            {{ dbt_utils.generate_surrogate_key(['salesorderheadersalesreason.salesorderid_fk', 'salesreason.salesreasonid_pk']) }} as reason_key
-            , salesorderheadersalesreason.salesorderid_fk as salesorder_id
+            salesorderheadersalesreason.salesorderid_fk as salesorder_id
             , salesreason.salesreasonid_pk as salesreason_id  
             , salesreason.salesreason_name
             , salesreason.salesreason_type
@@ -21,5 +20,14 @@ with
 
     )
 
-select * 
-from joined
+    , reason_order as (
+        select
+            salesorder_id
+            , coalesce(listagg(salesreason_name, ', ') within group (order by salesreason_name), 'No Reason') as sales_reason_agg
+            , coalesce(listagg(salesreason_type, ', ') within group (order by salesreason_type), 'No Ype') as sales_type_agg
+        from joined
+        group by salesorder_id
+    )
+    
+select *
+from reason_order

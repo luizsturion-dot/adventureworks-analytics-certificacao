@@ -1,5 +1,3 @@
-version: 2
-
 models:
   - name: fct_sales
     description: "The core Sales Fact table, built at the Sales Order Detail line-item granularity. This model combines order header context with line item metrics and serves as the primary source for revenue and volume analysis."
