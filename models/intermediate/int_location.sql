@@ -21,19 +21,18 @@ with
 
     , joined as (
         select 
-            {{ dbt_utils.generate_surrogate_key(['address.addressid_pk', 'stateprovince.territoryid_fk', 'salesterritory.territory_name']) }} as location_key,
-            address.addressid_pk as address_key,
-            stateprovince.territoryid_fk as territory_key,
-            COALESCE(address.address_line_1, '') || ' ' || COALESCE(address.address_line_2, '') as full_address,
-            address.city_name as city,
-            address.stateprovinceid_fk as state_province_key,
-            stateprovince.stateprovince_name as state_province,
-            stateprovince.stateprovincecode,
-            address.postal_code,
-            salesterritory.territory_name,
-            salesterritory.areacontinent,
-            countryregion.country_name as country,
-            stateprovince.countryregioncode_stateprovince_fk as country_code,
+            address.addressid_pk as address_key
+            , stateprovince.territoryid_fk as territory_key
+            , COALESCE(address.address_line_1, '') || ' ' || COALESCE(address.address_line_2, '') as full_address
+            , address.city_name as city
+            , address.stateprovinceid_fk as state_province_key
+            , stateprovince.stateprovince_name as state_province
+            , stateprovince.stateprovincecode
+            , address.postal_code
+            , salesterritory.territory_name
+            , salesterritory.areacontinent
+            , countryregion.country_name as country
+            , stateprovince.countryregioncode_stateprovince_fk as country_code
 
 
         from address
