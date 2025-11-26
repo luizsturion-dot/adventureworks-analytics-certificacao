@@ -87,16 +87,15 @@ Este projeto foi validado conforme os requisitos da certificação:
 
 ---
 
-[AJUSTAR]
 ## 🔗 Links de Entrega
 
 | Item | Status | Link para Acesso |
 | :--- | :--- | :--- |
+| **Drive com entregas** | **CONCLUÍDO** | [https://drive.google.com/drive/folders/1UptzXqCB2qIKp6F72PpMhFUGUFxM5WL5?usp=sharing] |
 | **Modelo Conceitual (PDF)** | **CONCLUÍDO** | [Disponibilizado na entrega final em arquivo ZIP/RAR] |
-| **Dashboard de BI** | **CONCLUÍDO** | [INSERIR LINK DO DASHBOARD AQUI - Ex: Data Studio/Power BI File] |
+| **Dashboard de BI** | **CONCLUÍDO** | [Disponibilizado na entrega final em arquivo ZIP/RAR] |
 | **Vídeo de Apresentação** | **CONCLUÍDO** | [INSERIR LINK DO VÍDEO AQUI - YouTube/Drive/Dropbox] |
 
 ---
-[AJUSTAR]
 *Desenvolvido por: Luiz Henrique Chueire Sturion*
-*Data de Conclusão: [Data]*
+*Data de Conclusão: [27/11/2025]*
