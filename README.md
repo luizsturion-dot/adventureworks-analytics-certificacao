@@ -94,7 +94,7 @@ Este projeto foi validado conforme os requisitos da certificação:
 | **Drive com entregas** | **CONCLUÍDO** | [https://drive.google.com/drive/folders/1UptzXqCB2qIKp6F72PpMhFUGUFxM5WL5?usp=sharing] |
 | **Modelo Conceitual (PDF)** | **CONCLUÍDO** | [Disponibilizado na entrega final em arquivo ZIP/RAR] |
 | **Dashboard de BI** | **CONCLUÍDO** | [Disponibilizado na entrega final em arquivo ZIP/RAR] |
-| **Vídeo de Apresentação** | **CONCLUÍDO** | [INSERIR LINK DO VÍDEO AQUI - YouTube/Drive/Dropbox] |
+| **Vídeo de Apresentação** | **CONCLUÍDO** | [https://drive.google.com/file/d/1xlIpCfNbOqB0q8Z_DoEmEKm9wKe6jDC8/view?usp=drive_link] |
 
 ---
 *Desenvolvido por: Luiz Henrique Chueire Sturion*
